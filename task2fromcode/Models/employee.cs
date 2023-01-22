@@ -28,7 +28,7 @@ namespace task2fromcode.Models
 
         public virtual List<dependent>? dependents { get; set; } = new List<dependent>();
 
-        public virtual List<workfor>? workfors { get; set; } = new List<workfor>();
+        public virtual List<workOn>? workOns { get; set; } = new List<workOn>();
 
         //fkey
         [ForeignKey("Employee")]

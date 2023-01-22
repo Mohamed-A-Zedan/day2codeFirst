@@ -12,7 +12,7 @@ namespace task2fromcode.Models
         public virtual DbSet<Dlocations> DLocations { get; set; }
         public virtual DbSet<project> Projects { get; set; }
 
-        public virtual DbSet<workfor> WorksFor { get; set; }
+        public virtual DbSet<workOn> WorkOns { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -20,7 +20,7 @@ namespace task2fromcode.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<workfor>().HasKey("ESSN", "Pnum");
+            modelBuilder.Entity<workOn>().HasKey("ESSN", "Pnum");
             modelBuilder.Entity<dependent>().HasKey("name", "EmployeeSSN");
             modelBuilder.Entity<Dlocations>().HasKey("Dlocation", "Dnum");
         }

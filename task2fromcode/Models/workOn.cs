@@ -2,7 +2,7 @@
 
 namespace task2fromcode.Models
 {
-    public class workfor
+    public class workOn
     {
         [ForeignKey("Employee")]
         public int? ESSN { get; set; }

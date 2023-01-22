@@ -16,7 +16,7 @@ namespace task2fromcode.Models
         //FKEY
         public int? DepartmentDnum { get; set; }
         public virtual department? Department { get; set; }
-        public virtual List<workfor>? workfor { get;} = new List<workfor>();
+        public virtual List<workOn>? workfor { get;} = new List<workOn>();
 
 
     }
