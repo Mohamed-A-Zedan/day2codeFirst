@@ -23,6 +23,10 @@ namespace task2fromcode.Models
             modelBuilder.Entity<workOn>().HasKey("ESSN", "Pnum");
             modelBuilder.Entity<dependent>().HasKey("name", "EmployeeSSN");
             modelBuilder.Entity<Dlocations>().HasKey("Dlocation", "Dnum");
+            modelBuilder.Entity<employee>().HasOne("Department").WithMany("Employees");
+            modelBuilder.Entity<employee>().HasOne("Departmentt").WithOne("Employee");
+
+
         }
 
     }

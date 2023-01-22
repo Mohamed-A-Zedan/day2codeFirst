@@ -14,7 +14,7 @@ namespace task2fromcode.Models
 
         public string relationship { get; set; }
 
-        //foren key
+        [ForeignKey("Employee")]
         public int? EmployeeSSN { get; set; }
         public virtual employee? Employee { get; set; }
 

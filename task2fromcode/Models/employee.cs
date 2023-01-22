@@ -34,7 +34,10 @@ namespace task2fromcode.Models
         [ForeignKey("Employee")]
         public int? superid { get; set; }
         public virtual employee? Employee { get; set; }
-
+        [ForeignKey("Department")]
+        public int? DeptId { get; set; }
+        public virtual department? Department { get; set; }
+        public virtual department? Departmentt { get; set; }
 
 
     }

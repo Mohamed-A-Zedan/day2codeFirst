@@ -15,6 +15,14 @@ namespace task2fromcode.Models
         public virtual List<project>? Projects { get; set; } = new List<project>();
 
         public virtual List<Dlocations>? DLocations { get; set; }= new List<Dlocations>() ;
+        public virtual List<employee>? Employees { get; set; } = new List<employee>();
+        [ForeignKey("Employee")]
+        public int? MangerId { get; set; }   
+        public virtual employee? Employee { get; set; }
+        public DateTime? hireDate { get; set; }
 
     }
 }
+
+
+
