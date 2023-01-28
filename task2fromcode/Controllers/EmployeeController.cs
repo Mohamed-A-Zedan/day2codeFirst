@@ -13,12 +13,19 @@ namespace task2fromcode.Controllers
             return View(a);
         }
 
-        public IActionResult getinfo()
+        public IActionResult user_details()
         {
             var id = HttpContext.Session.GetInt32("SSN");
             var a = DB.employees.Where(x => x.SSN == id).SingleOrDefault();
             ViewBag.emp = DB.employees.ToList();
            
+            return View(a);
+        }
+        public IActionResult getinfo(int id)
+        {
+            var a = DB.employees.Where(x => x.SSN == id).SingleOrDefault();
+            ViewBag.emp = DB.employees.ToList();
+
             return View(a);
         }
 
@@ -92,8 +99,16 @@ namespace task2fromcode.Controllers
             else
             {
                 HttpContext.Session.SetInt32("SSN",empLogin.SSN);
-                return RedirectToAction(nameof(getinfo));
+                return RedirectToAction(nameof(user_details));
             }
+        }
+        public IActionResult manager()
+        {
+
+            var a = DB.Departments.Include(e => e.Employee).Where(e => e.MangerId != null).Select(e => e.Employee.Fname).ToList();
+
+            return View(a);
+
         }
 
 

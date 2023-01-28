@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model employee;    
+@model employee;
 <style>
 
 
@@ -36,7 +36,7 @@
     <span class="two">Gender:</span>
 
     <span>
-    @Model.sex
+        @Model.sex
     </span>
 </div>
 <div>
@@ -76,7 +76,7 @@
 <span class="two">projects</span>
 @foreach (var item in @Model.workOns)
 {
-   @if (@item.Project.Name == null)
+    @if (@item.Project.Name == null)
     {
         <h6>no</h6>
     }
@@ -87,7 +87,7 @@
         </div>
     }
 
-   
+
 
 
 }
@@ -97,4 +97,3 @@
 {
     <a href="/department/GetDeptByMgrId/@Model.SSN">Department You Manage</a>
 }
-

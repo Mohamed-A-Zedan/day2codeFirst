@@ -22,6 +22,22 @@ namespace task2fromcode
 
             app.UseRouting();
             app.UseSession();
+            app.Use(async (count, next) =>
+            {
+                if (count.Request.Cookies.ContainsKey("reqnum"))
+                {
+                    int num = int.Parse(count.Request.Cookies["reqnum"]);
+                    count.Response.Cookies.Append("reqnum", (++num).ToString());
+
+
+                }
+                else
+                {
+                    count.Response.Cookies.Append("reqnum", "1");
+                }
+
+                await next();
+            });
 
             app.UseAuthorization();
 
@@ -33,3 +49,4 @@ namespace task2fromcode
         }
     }
 }
+
