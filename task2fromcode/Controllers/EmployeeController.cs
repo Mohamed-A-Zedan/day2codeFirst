@@ -13,9 +13,10 @@ namespace task2fromcode.Controllers
             return View(a);
         }
 
-        public IActionResult getinfo(int id)
+        public IActionResult getinfo()
         {
-            var a = DB.employees.Where(x=>x.SSN==id).SingleOrDefault();
+            var id = HttpContext.Session.GetInt32("SSN");
+            var a = DB.employees.Where(x => x.SSN == id).SingleOrDefault();
             ViewBag.emp = DB.employees.ToList();
            
             return View(a);
