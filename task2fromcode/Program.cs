@@ -1,3 +1,4 @@
+
 namespace task2fromcode
 {
     public class Program
@@ -8,6 +9,7 @@ namespace task2fromcode
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -19,6 +21,7 @@ namespace task2fromcode
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 

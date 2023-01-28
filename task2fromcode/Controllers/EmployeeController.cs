@@ -9,28 +9,28 @@ namespace task2fromcode.Controllers
         companyDBcontext DB=new companyDBcontext(); 
         public IActionResult Index()
         {
-       var q=  DB.employees.ToList();
-            return View(q);
+       var a=  DB.employees.ToList();
+            return View(a);
         }
 
         public IActionResult getinfo(int id)
         {
-            var q = DB.employees.Where(x=>x.SSN==id).SingleOrDefault();
+            var a = DB.employees.Where(x=>x.SSN==id).SingleOrDefault();
             ViewBag.emp = DB.employees.ToList();
            
-            return View(q);
+            return View(a);
         }
 
         public IActionResult addform()
         {
            
-            var q = DB.employees.ToList();
-            return View(q);
+            var a = DB.employees.ToList();
+            return View(a);
         }
 
         public IActionResult addnew(employee emp)
         {
-            var q = DB.employees.ToList();
+            var a = DB.employees.ToList();
             DB.employees.Add(emp);
             DB.SaveChanges();
 
@@ -41,9 +41,9 @@ namespace task2fromcode.Controllers
         public IActionResult delete(int id)
         {
 
-            var q = DB.employees.Where(x=>x.SSN== id).SingleOrDefault();
+            var a = DB.employees.Where(x=>x.SSN== id).SingleOrDefault();
 
-            DB.employees.Remove(q);
+            DB.employees.Remove(a);
                  DB.SaveChanges();
             return RedirectToAction(nameof(Index));
 
@@ -52,28 +52,59 @@ namespace task2fromcode.Controllers
         public IActionResult editform(int id)
         {
 
-            var q = DB.employees.Where(x => x.SSN == id).SingleOrDefault();
+            var a = DB.employees.Where(x => x.SSN == id).SingleOrDefault();
              ViewBag.emp = DB.employees.ToList();
            
-            return View(q);
+            return View(a);
 
         }
 
         public IActionResult afteredit(employee emp)
         {
 
-            var q = DB.employees.Where(x=>x.SSN== emp.SSN).SingleOrDefault();
-            q.Fname=emp.Fname;
-            q.Lname=emp.Lname;
-            q.salary=emp.salary;
-            q.superid=emp.superid;
-            q.sex=emp.sex;
-            q.address=emp.address;
+            var a = DB.employees.Where(x=>x.SSN== emp.SSN).SingleOrDefault();
+            a.Fname=emp.Fname;
+            a.Lname=emp.Lname;
+            a.salary=emp.salary;
+            a.superid=emp.superid;
+            a.sex=emp.sex;
+            a.address=emp.address;
             DB.SaveChanges();
             return RedirectToAction(nameof(Index));
 
 
 
         }
+        public IActionResult login()
+        {
+            //var a = DB.employees.Where(x=>x.SSN==id && x.Fname==name).SingleOrDefault();
+            return View();
+        }
+        public IActionResult logging(employee empLogin)
+        {
+
+            employee emppp = DB.employees.Where(x => x.SSN == empLogin.SSN && x.Fname == empLogin.Fname).SingleOrDefault();
+            if (emppp == null)
+            {
+                return View("error"); 
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("SSN",empLogin.SSN);
+                return RedirectToAction(nameof(getinfo));
+            }
+        }
+
+
+
     }
 }
+
+
+
+
+
+
+
+
+
