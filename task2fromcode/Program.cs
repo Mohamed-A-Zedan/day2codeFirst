@@ -22,18 +22,18 @@ namespace task2fromcode
 
             app.UseRouting();
             app.UseSession();
-            app.Use(async (count, next) =>
+            app.Use(async (cont, next) =>
             {
-                if (count.Request.Cookies.ContainsKey("reqnum"))
+                if (cont.Request.Cookies.ContainsKey("reqnum"))
                 {
-                    int num = int.Parse(count.Request.Cookies["reqnum"]);
-                    count.Response.Cookies.Append("reqnum", (++num).ToString());
+                    int num = int.Parse(cont.Request.Cookies["reqnum"]);
+                    cont.Response.Cookies.Append("reqnum", (++num).ToString());
 
 
                 }
                 else
                 {
-                    count.Response.Cookies.Append("reqnum", "1");
+                    cont.Response.Cookies.Append("reqnum", "1");
                 }
 
                 await next();
