@@ -7,7 +7,7 @@
 
 <form action="/workOnProject/afterAdd">
     <label>Choose Project</label>
-    <select id="projNum" name="projects">
+    <select id="projNum" name="projects" multiple>
         <option value="">Choose Project</option>
         @foreach (var project in Model)
         {
@@ -16,7 +16,7 @@
     </select>
 
     <label>Choose Employees</label>
-    <select id="SSN" name="Employees">
+    <select id="SSN" name="Employees" multiple>
         <option value="">Choose Employees</option>
         @foreach (var employee in ViewBag.emps)
         {
