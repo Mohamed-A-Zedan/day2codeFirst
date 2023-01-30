@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using task2fromcode.Models;
 
 namespace task2fromcode.Controllers
@@ -16,16 +17,32 @@ namespace task2fromcode.Controllers
             var a = DB.Projects.ToList();
             return View(a);
         }
+        [HttpGet]
         public IActionResult addform()
         {
             ViewBag.department = DB.Departments.ToList();
             return View();
         }
-        public IActionResult add(project p)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult add(VMproject p)
         {
-            DB.Projects.Add(p);
-            DB.SaveChanges();
-            return RedirectToAction(nameof(allProjects));
+            if (ModelState.IsValid)
+            {
+                project proj = new project()
+                {
+                    Name = p.Name,
+                    Pnumber = p.Pnumber,
+                    location = p.location
+                };
+                DB.Projects.Add(proj);
+                DB.SaveChanges();
+                return RedirectToAction(nameof(allProjects));
+            }
+            else
+            {
+                return View();
+            }
         }
         
     }
