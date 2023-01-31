@@ -1,5 +1,4 @@
-﻿using AspNetCore;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using task2fromcode.Models;
 
 namespace task2fromcode.Controllers
@@ -7,12 +6,12 @@ namespace task2fromcode.Controllers
     
     public class ProjectController : Controller
     {
-        companyDBcontext DB = new companyDBcontext();
-        public IActionResult Index()
+        companyDBcontext DB;
+        public ProjectController()
         {
-            return View();
-        }
-        public IActionResult allProjects(int id)
+            DB = new companyDBcontext();
+        } 
+        public IActionResult allProjects()
         {
             var a = DB.Projects.ToList();
             return View(a);
@@ -27,8 +26,10 @@ namespace task2fromcode.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult add(VMproject p)
         {
+
             if (ModelState.IsValid)
             {
+
                 project proj = new project()
                 {
                     Name = p.Name,
@@ -47,3 +48,7 @@ namespace task2fromcode.Controllers
         
     }
 }
+
+
+
+
