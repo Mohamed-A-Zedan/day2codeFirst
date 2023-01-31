@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Proxies.Internal;
 using task2fromcode.Models;
@@ -47,5 +48,40 @@ namespace task2fromcode.Controllers
 
             return View(worksOnProject1);
         }
+        public IActionResult Edit()
+        {
+            List<employee> employees = DB.employees.ToList();
+            ViewBag.employees = new SelectList(employees, "SSN", "Fname");
+            return View();
+        }
+
+        public IActionResult Edit_emp(int id)
+        {
+            List<project>? projects = DB.WorkOns.Include(w => w.Project).Where(w => w.ESSN == id).Select(w => w.Project).ToList();
+            ViewBag.projects = new SelectList(projects, "Pnumber", "PName");
+            if (projects.Count > 0)
+            {
+                workOn worksOnProject = new workOn()
+                {
+                    hour = DB.WorkOns.SingleOrDefault(w => (w.ESSN == id) && (w.Pnum == projects[0].Pnumber)).hour
+                };
+                return PartialView("_ProjectsList", worksOnProject);
+            }
+            return PartialView("_ProjectsList");
+        }
+
+        public IActionResult Edit_emp_proj(int id, int projNum)
+        {
+            workOn? worksOnProject = DB.WorkOns.SingleOrDefault(w => w.ESSN == id && w.Pnum == projNum);
+            return PartialView("_hour", worksOnProject);
+        }
+
+        public IActionResult EditDb(workOn worksOnProject)
+        {
+            DB.WorkOns.Update(worksOnProject);
+            DB.SaveChanges();
+            return View();
+        }
+
     }
 }
