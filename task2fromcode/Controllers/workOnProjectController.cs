@@ -58,7 +58,7 @@ namespace task2fromcode.Controllers
         public IActionResult Edit_emp(int id)
         {
             List<project>? projects = DB.WorkOns.Include(w => w.Project).Where(w => w.ESSN == id).Select(w => w.Project).ToList();
-            ViewBag.projects = new SelectList(projects, "Pnumber", "PName");
+            ViewBag.projects = new SelectList(projects, "Pnumber", "Name");
             if (projects.Count > 0)
             {
                 workOn worksOnProject = new workOn()
@@ -70,9 +70,9 @@ namespace task2fromcode.Controllers
             return PartialView("_ProjectsList");
         }
 
-        public IActionResult Edit_emp_proj(int id, int projNum)
+        public IActionResult Edit_emp_proj(int id, int Pnum)
         {
-            workOn? worksOnProject = DB.WorkOns.SingleOrDefault(w => w.ESSN == id && w.Pnum == projNum);
+            workOn? worksOnProject = DB.WorkOns.SingleOrDefault(w => w.ESSN == id && w.Pnum == Pnum);
             return PartialView("_hour", worksOnProject);
         }
 
